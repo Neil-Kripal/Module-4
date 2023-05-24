@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>News Page</title>
+    <script>
+      let news = [
+        {
+          id: 1,
+          title: "News 1",
+          content: "Car crashes into house while nan was having tea",
+        },
+        {
+          id: 2,
+          title: "News 2",
+          content: "Masked robbers caught breaking and entering into a prison",
+        },
+        {
+          id: 3,
+          title: "News 3",
+          content:
+            "Elderly womans walking stick prevents the bombing of America",
+        },
+      ];
+
+      let currentNewsIndex = 0;
+
+      function updateNewsContainer() {
+        const newsContainer = document.getElementById("news-container");
+        newsContainer.innerHTML = ""; // Clear existing news
+
+        const currentNews = news[currentNewsIndex];
+
+        const newsItem = document.createElement("div");
+        newsItem.innerHTML = `<h3>${currentNews.title}</h3><p>${currentNews.content}</p>`;
+        newsContainer.appendChild(newsItem);
+
+        currentNewsIndex = (currentNewsIndex + 1) % news.length;
+      }
+
+      function addNews() {
+        const titleInput = document.getElementById("title-input");
+        const contentInput = document.getElementById("content-input");
+
+        const newNews = {
+          id: news.length + 1,
+          title: titleInput.value,
+          content: contentInput.value,
+        };
+
+        news.push(newNews);
+        titleInput.value = "";
+        contentInput.value = "";
+
+        preventDefault();
+
+        updateNewsContainer();
+      }
+
+      window.addEventListener("load", () => {
+        updateNewsContainer(); // Initial population
+
+        setInterval(() => {
+          // Fetch the latest news from the server or update the 'news' array here
+          updateNewsContainer();
+        }, 5000); // 5 seconds interval
+      });
+    </script>
+  </head>
+  <body>
+    <div id="news-container"></div>
+
+    <div>
+      <input id="title-input" type="text" placeholder="News Title" />
+      <textarea id="content-input" placeholder="News Content"></textarea>
+      <button onclick="addNews()">Submit</button>
+    </div>
+  </body>
+</html>

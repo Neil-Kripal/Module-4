@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moment.js Examples</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone.min.js"></script>
+</head>
+<body>
+  <h1>Moment.js Examples</h1>
+
+  <h2>Problem 1: Calculate the number of days between your birthdate and the current date</h2>
+  <p id="days"></p>
+
+  <h2>Problem 2: Display the number of years, months, and days between your birthdate and current date</h2>
+  <p id="age"></p>
+
+  <h2>Problem 3: Given two dates, display the date closest to the current date</h2>
+  <p id="closest-date"></p>
+
+  <h2>Problem 4: Given two dates, display whether the first date is before or after the second date</h2>
+  <p id="date-comparison"></p>
+
+  <h2>Problem 5: Display the current time in London</h2>
+  <p id="london-time"></p>
+
+  <script>
+    // Problem 1: Calculate the number of days between your birthdate and the current date
+    const birthdate = moment('2000-07-07'); 
+    const currentDate = moment();
+    const days = currentDate.diff(birthdate, 'days');
+    document.getElementById('days').textContent = 'Number of days: ' + days;
+
+    // Problem 2: Display the number of years, months, and days between your birthdate and current date
+    const years = currentDate.diff(birthdate, 'years');
+    birthdate.add(years, 'years');
+    const months = currentDate.diff(birthdate, 'months');
+    birthdate.add(months, 'months');
+    const remainingDays = currentDate.diff(birthdate, 'days');
+    document.getElementById('age').textContent = 'Age: ' + years + ' years, ' + months + ' months, and ' + remainingDays + ' days';
+
+    // Problem 3: Given two dates, display the date closest to the current date
+    const date1 = moment('2023-03-21'); // Replace '2023-01-01' with the first date
+    const date2 = moment('2023-5-09'); // Replace '2023-02-01' with the second date
+    const diff1 = Math.abs(date1.diff(currentDate));
+    const diff2 = Math.abs(date2.diff(currentDate));
+    const closestDate = diff1 < diff2 ? date1 : date2;
+    document.getElementById('closest-date').textContent = 'Closest date: ' + closestDate.format('YYYY-MM-DD');
+
+    // Problem 4: Given two dates, display whether the first date is before or after the second date
+    const isBefore = date1.isBefore(date2);
+    const comparisonResult = isBefore ? 'before' : 'after';
+    document.getElementById('date-comparison').textContent = 'Date 1 is ' + comparisonResult + ' Date 2';
+
+    // Problem 5: Display the current time in London
+    const londonTime = moment().tz('Europe/London');
+    document.getElementById('london-time').textContent = 'London Time: ' + londonTime.format('HH:mm:ss');
+
+  </script>
+</body>
+</html>

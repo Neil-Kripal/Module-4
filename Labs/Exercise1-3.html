@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #e3f2fd;
+      }
+      .card {
+        padding: 10px;
+      }
+      .card-title {
+        font-weight: 600;
+        font-size: 2em;
+        padding: 0 0 10px 0;
+        text-align: center;
+      }
+      .card-description {
+        font-weight: 400;
+        font-size: 2em;
+      }
+
+      img {
+        width: auto;
+        height: 300px;
+      }
+
+      .artist-name {
+        font-size: 4em;
+        margin-bottom: 5px;
+      }
+
+      .portfolio-container {
+        display: flex;
+        justify-content: space-evenly;
+      }
+    </style>
+  </head>
+  <body>
+    <template id="card-template">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-title"></div>
+          <img class="card-image" alt="Portfolio Image" />
+        </div>
+      </div>
+    </template>
+
+    <template id="profile-card-template">
+      <div class="profile-card">
+        <h2 class="artist-name"></h2>
+        <div class="portfolio-container"></div>
+      </div>
+    </template>
+
+    <div id="card-list"></div>
+  </body>
+</html>
+
+<script>
+  // Exercise 1
+  /* function addCard(title, text) {
+      const template = document.getElementById("card-template");
+      const clone = template.content.cloneNode(true);
+    
+      clone.querySelector('.card-title').innerText = title;
+      clone.querySelector('.card-text').innerText = text;
+      document.querySelector('#card-list').appendChild(clone);
+    }
+    
+    if ('content' in document.createElement('template')) {
+      addCard('Neil Kripal - Bio', 'Small blurb on my life');
+    } */
+
+  // Exercise 2
+  /* function addCard(data) {
+    const template = document.getElementById("card-template");
+    const cardList = document.querySelector("#card-list");
+
+    data.forEach((item) => {
+      const clone = template.content.cloneNode(true);
+
+      clone.querySelector(".card-title").innerText = item.name;
+      clone.querySelector(".card-text").innerText = "Age: " + item.age;
+
+      cardList.appendChild(clone);
+    });
+  }
+
+  if ("content" in document.createElement("template")) {
+    const data = [
+      { name: "Neil", age: 22 },
+      { name: "John", age: 36 },
+    ];
+    addCard(data);
+  } */
+
+  function createCard(title, imageUrl) {
+    const cardTemplate = document.getElementById("card-template");
+    const clone = cardTemplate.content.cloneNode(true);
+
+    clone.querySelector(".card-title").innerText = title;
+    const imageElement = clone.querySelector(".card-image");
+    imageElement.src = imageUrl;
+
+    return clone;
+  }
+
+  function addProfileCard(artist) {
+    const profileCardTemplate = document.getElementById(
+      "profile-card-template"
+    );
+    const profileCard = profileCardTemplate.content.cloneNode(true);
+
+    profileCard.querySelector(".artist-name").innerText = artist.name;
+
+    const portfolioContainer = profileCard.querySelector(
+      ".portfolio-container"
+    );
+    artist.portfolio.forEach((item) => {
+      const portfolioCard = createCard(item.title, item.url);
+      portfolioContainer.appendChild(portfolioCard);
+    });
+
+    document.querySelector("#card-list").appendChild(profileCard);
+  }
+
+  if ("content" in document.createElement("template")) {
+    const artist1 = {
+      name: "Van Gogh",
+      portfolio: [
+        {
+          title: "Portrait",
+          url: "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436532/1671316/main-image",
+        },
+        {
+          title: "Sky",
+          url: "https://mymodernmet.com/wp/wp-content/uploads/2020/11/White-house-night-van-goh-worldwide-2.jpg",
+        },
+      ],
+    };
+
+    const artist2 = {
+      name: "Leonardo Da Vinci",
+      portfolio: [
+        {
+          title: "Mona Lisa",
+          url: "https://cdn.britannica.com/24/189624-050-F3C5BAA9/Mona-Lisa-oil-wood-panel-Leonardo-da.jpg",
+        },
+        {
+          title: "The Last Supper",
+          url: "https://images.immediate.co.uk/production/volatile/sites/7/2021/03/GettyImages-550119221-e490377.jpg?quality=90&resize=980,654",
+        },
+      ],
+    };
+
+    addProfileCard(artist1);
+    addProfileCard(artist2);
+  }
+</script>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Square Slider</title>
+  <style>
+    body {
+        display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      margin: 0;
+    }
+    #slider {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      position: relative;
+      animation: slideAnimation 4s infinite;
+    }
+
+    @keyframes slideAnimation {
+      0% {
+        top: 0;
+        background-color: red;
+      }
+      50% {
+        top: calc(100vh - 100px);
+        background-color: blue;
+      }
+      100% {
+        top: 0;
+        background-color: red;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="slider"></div>
+
+  <script>
+    const slider = document.getElementById("slider");
+
+    function restartAnimation() {
+      slider.style.animation = "none";
+      void slider.offsetHeight; // Trigger reflow
+      slider.style.animation = null;
+    }
+
+    window.addEventListener("resize", restartAnimation);
+  </script>
+</body>
+</html>
